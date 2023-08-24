@@ -50,7 +50,9 @@ function App() {
           <main className='main'>
             <h2>{film.Title}</h2>
             <div className='poster'>
-              <img src={film.Poster} />
+              <div className='posterImg'>
+                <img src={film.Poster} />
+              </div>
               <div>  
                 <h3> Runtime: {film.Runtime}</h3>
                 <span>{film.Plot}</span>
