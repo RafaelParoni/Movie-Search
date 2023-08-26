@@ -4,6 +4,7 @@ import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
 var errorValue = true;
+var filmes = []
 function App() {
   const [input, setInput] = useState('');
   const [film, setFilm] = useState({});
@@ -15,19 +16,19 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
-    
-
     try{
+      filmes = []
       const response = await api.get(`${input}&apikey=c74f3650&plot=full`);
 
-      setFilm({
-        one: response.data.Search[0],
-        two: response.data.Search[1],
-        three: response.data.Search[2],
-        for: response.data.Search[3],
-        five: response.data.Search[4],
-      });
-     
+      setFilm(response.data.Search);
+
+      for(const key in response.data.Search){
+        if(key > 4){break}
+        filmes.push(<div className='movie'>
+          <img src={response.data.Search[key].Poster} />
+          <p>{response.data.Search[key].Title}</p>
+          </div>)
+      };
       if(response.data.Response == 'False'){errorValue = false; setFilm({}); }else {errorValue = true}
       setInput('');
     }catch{
@@ -35,6 +36,8 @@ function App() {
       setInput('');
       setFilm({});
     }
+
+
   }return (
     <div className="center">
       <h1>Search a movie:</h1>
@@ -55,14 +58,13 @@ function App() {
             <FiSearch size={25} color='FFF'/>
           </button>
       </div>
-      {Object.keys(film).length > 0 && (
+      
+      {Object.keys(film).length > 0 &&(
         <div className='results'>
-          <div className='movie'>
+          <div className='movies'>
+            {filmes}
           </div>
-          <div className='page'>
-
-          </div>
-        </div>
+      </div>
       )}
       {errorValue == false && (
           <main className='main'>
