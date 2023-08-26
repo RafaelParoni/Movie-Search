@@ -27,7 +27,7 @@ function App() {
       if(response.data.Response =='False'){errorValue = false; setFilm({}); }else{errorValue = true}
       setInput('');
     }catch{
-      errorValue = false
+      errorValue = false;
       setInput('');
       setFilm({});
     }
