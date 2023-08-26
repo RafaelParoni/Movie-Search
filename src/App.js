@@ -5,7 +5,7 @@ import api from './services/api'
 import posterError from './poster.jpg'
 var errorValue = true;
 function App() {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
   const [film, setFilm] = useState({});
 
   async function handleSearch(){
@@ -15,19 +15,23 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
+    
 
     try{
-      const response = await api.get(`${input}&apikey=c74f3650`);
-      setFilm(response.data);
-      console.log(response.data);
-      if(response.data.Plot == 'N/A'){response.data.Plot = 'plot not found...'}
-      if(response.data.Language == 'N/A'){response.data.Language = 'default language not found...'}
-      if(response.data.Runtime == 'N/A'){response.data.Runtime = 'not found...'}
-      if(response.data.Released == 'N/A'){response.data.Released = 'not found...'}
-      if(response.data.Response =='False'){errorValue = false; setFilm({}); }else{errorValue = true}
+      const response = await api.get(`${input}&apikey=c74f3650&plot=full`);
+
+      setFilm({
+        one: response.data.Search[0],
+        two: response.data.Search[1],
+        three: response.data.Search[2],
+        for: response.data.Search[3],
+        five: response.data.Search[4],
+      });
+     
+      if(response.data.Response == 'False'){errorValue = false; setFilm({}); }else {errorValue = true}
       setInput('');
     }catch{
-      errorValue = false;
+      errorValue = false
       setInput('');
       setFilm({});
     }
@@ -41,28 +45,24 @@ function App() {
           placeholder="Film's name..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={event => {
+            if (event.key === 'Enter') {
+              handleSearch()
+            }
+            }}
           />
           <button className="buttonSearch" onClick={handleSearch}>
             <FiSearch size={25} color='FFF'/>
           </button>
       </div>
       {Object.keys(film).length > 0 && (
-          <main className='main'>
-            <h2>{film.Title}</h2>
-            <div className='poster'>
-              <div className='posterImg'>
-                <img src={film.Poster} />
-              </div>
-              <div>  
-                <h3> Runtime: {film.Runtime}</h3>
-                <span>{film.Plot}</span>
-                <span>Language: {film.Language}</span>
-              </div>
-            </div>
-            <span>Released: {film.Released}</span>
-            <span>Metas core: {film.Metascore}%</span>
-  
-          </main>
+        <div className='results'>
+          <div className='movie'>
+          </div>
+          <div className='page'>
+
+          </div>
+        </div>
       )}
       {errorValue == false && (
           <main className='main'>

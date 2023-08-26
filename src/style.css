@@ -2,15 +2,16 @@
     width: 100%;
     height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 10vh;
 }
 h1{
     font-size: 80px;
     color: #fff;
     animation: FlipTitle 1s;
     text-align: center;
+    margin-top: 20vh;
 }
 
 @keyframes FlipTitle {
@@ -58,65 +59,78 @@ h1{
 .buttonSearch:hover {
     transform: scale(1.2);
 }
-.main{
-    color: #000;
-    display: flex;
+.results {
+    display: block;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #fff;
-    width: 500px;
-    border-radius: 8px;
+    background-color: red;
+    width: 700px;
+    height: 500px;
 }
-.main h2 {
-    margin: 10px 0 0 0;
-    font-size: 33px;
-    text-align: center;
+.movie {
+    background-color: green;
+    width: 100%;
+    height: 93%;
 }
-.main span{
-    margin-bottom: 16px;
-    font-weight: bold;
-}
-.main img {
-    width: 200px;
-    border-radius: 15px;
-}
-.poster{
-    display: flex;
-}
-.poster div {
-    display: flex;
-    align-items:center;
-    flex-direction: column;
-    margin: 20px 0 0 15px;
+.page {
+    background-color: yellow;
+    width: 100%;
+    height: 7%;
 }
 
-.poster div span:last-child{
-    width: 100%;
+.social {
+    position: fixed;
+    top: 95vh;
+    left: 50%;
+    transform: translate(-50%, -50% );
+    width: auto;
+    height: 5vh;
+    display: flex;
 }
-.main span:nth-last-child(2){
-    margin-top: 15px;
+.icon{
+    width: 5vh;
+    height: 100%;
 }
+.github{
+    background-image: url('./icons/github.ico');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.github:hover {
+    filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
+}
+.site{
+    background-image: url('./icons/website.ico');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.site:hover {
+    filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
+}
+
+
 @media (max-width: 600px){
     h1{
         font-size: 60px;
     }
-    .main{
-        width: 80%;
+    .Movies {
+        display: grid;
     }
+    
 }
 @media (max-width: 500px){
     h1{
         font-size: 50px;
     }
     .main{
-        width: 80%;
+        padding-inline: 10px;
+        padding: 10px;
+        height: 350px;
     }
     .main h2 {
         font-size: 23px;
     }
     .poster{
-        display: block;
+        display: flex;
     }
     .poster div:nth-child(2) {
         margin-inline: 5px;
@@ -125,13 +139,10 @@ h1{
         margin-inline: 0;
     }
     .main img {
-        width: 50%;
+        width: 200px;
     }
     .posterImg {
         width: 100%;
     }
-    .main span:nth-last-child(1){
-        text-align: center;
-        width: 100%;
-    }
+  
 }
