@@ -18,7 +18,9 @@ function App() {
     }
     try{
       filmes = []
-      const response = await api.get(`${input}&apikey=c74f3650&plot=full`);
+      var value = input.toLowerCase()
+      value = value.trim()
+      const response = await api.get(`${value}&apikey=c74f3650&plot=full`);
 
       setFilm(response.data.Search);
 
