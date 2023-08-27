@@ -67,10 +67,9 @@ function App() {
       </div>
       )}
       {errorValue == false && (
-          <main className='main'>
-            <div className='poster'>
+          <main className='resultError'>
+            <div className='posterError'>
               <img src={posterError}/>
-          
             </div>
             <span>movie not found :c</span>
             <span>Try searching without name translation!</span>

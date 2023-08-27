@@ -117,6 +117,22 @@ h1{
     filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
 }
 
+.resultError {
+    width: 250px;
+    height: auto;
+    padding: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    
+}
+.resultError span {
+    text-align: center;
+}
+.posterError img {
+    width: 100%;
+}
 @media (max-width: 1000px){
     h1{
         font-size: 60px;
