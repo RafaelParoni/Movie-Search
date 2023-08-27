@@ -61,9 +61,7 @@ h1{
 }
 .results {
     display: block;
-    width: auto;
-    height: auto;
-    background-color: #fff;
+    background-color: rgba(277, 277, 277, 0.7);
     padding: 10px;
     border-radius: 5px;
 }
@@ -83,9 +81,11 @@ h1{
     padding-bottom: 5px;
 }
 .movies {
-    width: 100%;
-    height: auto;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    padding-bottom: 5px;
 }
 .social {
     position: fixed;
@@ -117,42 +117,34 @@ h1{
     filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
 }
 
-
+@media (max-width: 1000px){
+    h1{
+        font-size: 60px;
+    }
+    .results {
+        width: 80%;
+    }
+    .social {
+        top: 95vh;
+        left: 10%;
+        height: 5vh;
+        background-color: rgba(277, 277, 277, 0.7);
+        border-radius: 5px;
+        padding: 5px;
+    }
+    
+}
 @media (max-width: 600px){
     h1{
         font-size: 60px;
     }
-    .Movies {
-        display: grid;
-    }
+
+
     
 }
 @media (max-width: 500px){
     h1{
         font-size: 50px;
     }
-    .main{
-        padding-inline: 10px;
-        padding: 10px;
-        height: 350px;
-    }
-    .main h2 {
-        font-size: 23px;
-    }
-    .poster{
-        display: flex;
-    }
-    .poster div:nth-child(2) {
-        margin-inline: 5px;
-    }
-    .poster div:nth-child(1) {
-        margin-inline: 0;
-    }
-    .main img {
-        width: 200px;
-    }
-    .posterImg {
-        width: 100%;
-    }
-  
+
 }

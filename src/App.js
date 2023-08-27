@@ -23,7 +23,7 @@ function App() {
       setFilm(response.data.Search);
 
       for(const key in response.data.Search){
-        if(key > 4){break}
+        if(key > 5){break}
         filmes.push(<div className='movie'>
           <img src={response.data.Search[key].Poster} />
           <p>{response.data.Search[key].Title}</p>
