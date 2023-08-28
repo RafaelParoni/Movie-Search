@@ -3,6 +3,7 @@ import { FiSearch } from 'react-icons/fi'
 import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
+var movie = ''
 var errorValue = true;
 var filmes = []
 function App() {
@@ -31,7 +32,7 @@ function App() {
           <p>{response.data.Search[key].Title}</p>
           </div>)
       };
-      if(response.data.Response == 'False'){errorValue = false; setFilm({}); }else {errorValue = true}
+      if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
       setInput('');
     }catch{
       errorValue = false
@@ -73,7 +74,7 @@ function App() {
             <div className='posterError'>
               <img src={posterError}/>
             </div>
-            <span>movie not found :c</span>
+            <span><b>{movie}</b> not found :c</span>
             <span>Try searching without name translation!</span>
           </main>
       )}
