@@ -162,6 +162,7 @@ h1{
     flex-direction: column;
     padding: 5px;
     border-radius: 5px;
+    overflow-y: scroll;
 }
 
 .close {
