@@ -1,10 +1,10 @@
 .center {
     width: 100%;
-    height: 100vh;
+    height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 10vh;
+    padding-bottom: 15vh;
 }
 h1{
     font-size: 80px;
@@ -76,6 +76,15 @@ h1{
     color: #000;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align:center;
+    cursor: pointer;
+}
+.movie:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+    filter: drop-shadow(10px 5px 15px #000);
+}
+.movie:focus{
+    transform: rotateY(150deg);
 }
 .movie p{
     padding-bottom: 5px;
@@ -106,6 +115,8 @@ h1{
     background-repeat: no-repeat;
 }
 .github:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
     filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
 }
 .site{
@@ -114,6 +125,8 @@ h1{
     background-repeat: no-repeat;
 }
 .site:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
     filter: drop-shadow(1px 1px 7px rgba(240, 240, 240, 0.7));
 }
 
@@ -133,6 +146,120 @@ h1{
 .posterError img {
     width: 100%;
 }
+
+/* MOVIE DETAIS */
+.MovieDetais {
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.close {
+    width: 100%;
+    text-align: end;
+    border: 0;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    filter: drop-shadow(0px 1px 2px #000);
+}
+.close a{
+    cursor: pointer;
+}
+.close a:hover {
+    transition:  0.5s;
+    transform: scale(1.1);
+}
+.centerInfo {
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+.centerInfo img {
+    width: 200px;
+    margin-right: 5px;
+}
+.centerInfo img:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+.centerInfo a span{
+    width: 200px;
+    position: absolute;
+    left: 5px;
+    top: 15px;
+    text-align: center;
+    color: #000;
+    text-decoration: none;
+}
+.centerInfo h2{
+    padding-bottom: 15px;
+    padding: 5px;
+}
+.centerInfo h2 button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.centerInfo h2 button:hover{
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+.centerInfo p{
+    background-color: rgba(277, 277, 277, 0.9);
+    padding: 2px;
+    border-radius: 5px;
+}
+.centerInfo div {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+}
+#copyName {
+    display: none;
+    background-color: rgba(240, 240, 240, 0.9);
+    top: 11%;
+    left: 65%;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: default;
+    font-size: 15px;
+    width: 150px;
+}
+.ButtomInfo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+}
+.ButtomInfo a:first-child{
+    padding: 5px 5px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.ButtomInfo a:first-child span{
+    padding: 5px 5px;
+}
+.ButtomInfo a:nth-last-child(1){
+    padding: 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 @media (max-width: 1000px){
     h1{
         font-size: 60px;
@@ -154,6 +281,30 @@ h1{
     h1{
         font-size: 60px;
     }
+    .MovieDetais{
+        width: 90%;
+        height: 90vh;
+        overflow-y: scroll;
+        
+    }
+    .centerInfo{
+        display: flex;
+        flex-direction: column;
+    }
+    .centerInfo a{
+        display: flex;
+        justify-content: center;
+    }
+    .centerInfo a span{
+        width: 100%;
+        position: absolute;
+        left: 5px;
+        top: 15px;
+        text-align: center;
+        color: #000;
+        text-decoration: none;
+    }
+
 
 
     
