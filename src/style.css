@@ -157,12 +157,12 @@ h1{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 255, 0.7);
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     padding: 5px;
     border-radius: 5px;
-    overflow-y: scroll;
+    
 }
 
 .close {
@@ -176,6 +176,7 @@ h1{
 }
 .close a{
     cursor: pointer;
+    font-size: 25px;
 }
 .close a:hover {
     transition:  0.5s;
@@ -229,7 +230,7 @@ h1{
 }
 #copyName {
     display: none;
-    background-color: rgba(240, 240, 240, 0.9);
+    background-color: rgba(102, 236, 69, 0.9);
     top: 11%;
     left: 65%;
     padding: 5px;
@@ -237,6 +238,7 @@ h1{
     cursor: default;
     font-size: 15px;
     width: 150px;
+    text-align: center;
 }
 .ButtomInfo {
     width: 100%;
@@ -284,7 +286,7 @@ h1{
     }
     .MovieDetais{
         width: 90%;
-        height: 90vh;
+        height: 80vh;
         overflow-y: scroll;
         
     }
@@ -297,13 +299,27 @@ h1{
         justify-content: center;
     }
     .centerInfo a span{
-        width: 100%;
+        width: auto;
         position: absolute;
-        left: 5px;
+        left: 50%;
+        transform: translate(-50%);
         top: 15px;
         text-align: center;
         color: #000;
         text-decoration: none;
+    }
+    .close {
+        padding-right: 5px;
+        
+    }
+    .close a {
+        font-size: 35px;
+        height: 35px;
+    }
+    .movie:hover {
+        transition: 0.5s;
+        transform: none;
+        
     }
 
 

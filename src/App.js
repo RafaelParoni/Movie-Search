@@ -111,9 +111,9 @@ function App() {
       {Object.keys(filmInfo).length > 0 &&( // Buscar Detalhes
         
        <div className='MovieDetais' id='IdMovieDetais'>
-        <span className='close'> <a onClick={() => setFilmInfo({})} > <CiSquareRemove size={25} color='000' /> </a></span>
+        <span className='close'> <a onClick={() => setFilmInfo({})} > <CiSquareRemove  color='000' /> </a></span>
           <div className='centerInfo'>
-            <a href={'https://www.google.com/search?q=' + filmInfo.Title}>
+            <a>
               <img src={filmInfo.Poster} />
               <span>Run time: {filmInfo.Runtime}</span>
             </a>
@@ -137,7 +137,7 @@ function App() {
           </div>
           <div className='ButtomInfo'>
             <a>
-              <span><GrLanguage/> Language:{filmInfo.Language}</span>
+              <span><GrLanguage/> Language: {filmInfo.Language}</span>
               <span><GrBook/> Genre: {filmInfo.Genre}</span>
               <span><GrUser/> Director: {filmInfo.Director}</span>
             </a> 
