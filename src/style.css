@@ -64,6 +64,24 @@ h1{
     background-color: rgba(277, 277, 277, 0.7);
     padding: 10px;
     border-radius: 5px;
+
+}
+#page1{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+#page2{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+.pages{
+    font-size: 20px;
+    padding-bottom: 10px;
+    background-color: green;
 }
 .movie {
     width: 200px;
@@ -91,11 +109,11 @@ h1{
 }
 .movies {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     width: auto;
     padding-bottom: 5px;
 }
+
 .social {
     position: fixed;
     top: 95vh;
@@ -146,6 +164,30 @@ h1{
 .posterError img {
     width: 100%;
 }
+.DivPages{
+    display: flex;
+    justify-content: center;
+}
+
+.BtnPages{
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    filter: drop-shadow(0px 5px 5px #000);
+    background-color: transparent;
+    border-radius: 50%;
+    margin-inline: 5px;
+    cursor: pointer;
+}
+.BtnPages:hover {
+    transition: 0.5s;
+    background-color: #089dd8;
+    transform: scale(1.2);
+}
+#btn-page1 {
+    background-color: #089dd8;
+}
+
 
 /* MOVIE DETAIS */
 .MovieDetais {
