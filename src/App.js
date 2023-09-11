@@ -1,27 +1,24 @@
 import {useState} from 'react'
 // import Icons ----|
-import { FiSearch } from 'react-icons/fi'
-import {FiCopy} from 'react-icons/fi'
-import { CiSquareRemove } from 'react-icons/ci'
-import {GrUser} from 'react-icons/gr'
-import {GrBook} from 'react-icons/gr'
-import {GrLanguage} from 'react-icons/gr';
-import {GrChannel} from 'react-icons/gr';
-import {GrTrophy} from 'react-icons/gr';
-import {GrValidate} from 'react-icons/gr';
-import {CiBookmark} from 'react-icons/ci'
+import { FiSearch, FiCopy } from 'react-icons/fi'
+import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
+import {GrChannel, GrTrophy, GrValidate, GrLanguage, GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 // import Icons ----|
 
 import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
+var busca = false
 var movie = ''
 var errorValue = true;
-var Pages1 = []
-var Pages2 = []
-var btnPages = []
-var ValuePage = 1
-var value = ''
+var Pages = []
+var PaginaAtual = 1
+var Buttons = []
+var displeyDefault = 'flex'
+var nameMovie = ''
+var PageResquest = 1
+var Movie = []
+var MovieResults = []
 function App() {
   const [input, setInput] = useState('');
   const [film, setFilm] = useState({});
@@ -33,63 +30,116 @@ function App() {
 
   async function handleSearch(){
     //  12237837/json/
+
  
+    if(busca == true){
+      console.log('barrado')
+      return
+    }
     if(input === ''){ 
       alert('Digite o nome do filme!')
       return;
     }
+    document.getElementById('DivSearch').style.cursor = 'no-drop'
+    document.getElementById('inputSearch').style.cursor = 'no-drop'
+    document.getElementById('buttonSearch').style.cursor = 'no-drop'
+    busca = false
     try{
-      Pages1 = []
-      Pages2 = []
-      value = input.toLowerCase()
-      value = value.trim()
-      const response = await api.get(`?s=${value}&apikey=c74f3650&plot=full`);
-
-      setFilm(response.data.Search);
-      for(const key in response.data.Search){
-        if(key > 4){break}
-        Pages1.push(
-              <div className='movies'>
-                  <div className='movie' onClick={() => movieDetais(response.data.Search[key])}>
-                  <img src={response.data.Search[key].Poster} />
-                  <p>{response.data.Search[key].Title}</p>
+      PaginaAtual = 1
+      busca = false
+      Pages = []
+      Buttons = []
+      Movie = []
+      MovieResults = []
+      busca = true
+      displeyDefault = 'flex'
+      PageResquest = 1;
+      totalPaginas = 1;
+      nameMovie = input.toLowerCase()
+      nameMovie = nameMovie.trim()
+      var totalPaginas = 0
+      console.log('buscando')
+      while(totalPaginas < PageResquest){
+        var page = PageResquest.toString()
+        const response = await api.get(`?s=${nameMovie}&page=${page}&apikey=c74f3650&plot=full`);
+        if(response.data.Search.length == 10){
+          if(PageResquest >= 11){break}
+          Movie[PageResquest] = response.data.Search
+          // if(PageResquest == 1){displeyDefault = 'flex'}else{displeyDefault = 'none'}
+          for(const key in response.data.Search){
+            Pages.push(
+              <> 
+                  <div className='MovieCard' style={{display: displeyDefault}}  id={`page${PageResquest} m${key}`}>
+                    <img  name='card' src={Movie[PageResquest][key].Poster}></img>
+                    <p for="card"> {Movie[PageResquest][key].Title} </p>
                   </div>
-                </div>
-          )
-      };
-      for(const key in response.data.Search){
-        if(key > 10){break}
-        if(key < 5){console.log('Lugar errado'+key)}else if(key < 10){
-          Pages2.push(
-                <div className='movies'>
-                    <div className='movie' onClick={() => movieDetais(response.data.Search[key])}>
-                    <img src={response.data.Search[key].Poster} />
-                    <p>{response.data.Search[key].Title}</p>
-                    </div>
-                  </div>
+              </>
             )
-        }
-        
-      };
-      
-
-      var i = 1
-      btnPages = []
-      while( i <= 2){
-        btnPages.push(
-          <>
-          <span className='BtnPages' id={'btn-page' + i} onClick={() => page(i)}></span>
-          </>
-        )
-        i++
+          }
+          displeyDefault = 'none'
+          PageResquest++
+          totalPaginas++
+          
+        }else {
+          if(PageResquest >= 11){break}
+          Movie[PageResquest] = response.data.Search
+          for(const key in response.data.Search){
+            Pages.push(
+              <>
+                  <div className='MovieCard' style={{display: displeyDefault}} id={`page${PageResquest} m${key}`}>
+                    <img  name='card' src={Movie[PageResquest][key].Poster}></img>
+                    <p for="card"> {Movie[PageResquest][key].Title} </p>
+                  </div>
+          
+              </>
+            )
+          totalPaginas++
+          }
+  
       }
-      if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
+         
+         
+      }
+      
+      if(Movie.length <= 3){
+        console.log('menor doq 1')
+        console.log(totalPaginas)
+        var i = 0
+        if(totalPaginas == 1 ){
+          Buttons.push(
+            <div className='BtnPages'>
+              <span>No Pages</span>
+            </div>
+          )
+        }else{
+          Buttons.push(
+            <div className='BtnPages'>
+              <button id='return' onClick={()=> MudarPagina('return')}><GrCaretPrevious/></button>
+              <button id='next' onClick={()=> MudarPagina('next')}><GrCaretNext/> </button>
+            </div>
+        )
+        }
 
+      }else{
+        Buttons.push(
+          <div className='BtnPages'>
+              <button id='return'  onClick={()=> MudarPagina('return')} ><GrCaretPrevious/></button>
+              <button id='next' onClick={()=> MudarPagina('next')} ><GrCaretNext/> </button>
+          </div>
+        )
+      }
+      
+      
+      busca = false
+      console.log('Terminou de buscar')
+      //if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
+      document.getElementById('DivSearch').style.cursor = 'default'
+      document.getElementById('inputSearch').style.cursor = 'auto'
+      document.getElementById('buttonSearch').style.cursor = 'pointer'
       setInput('');
     }catch{
       errorValue = false
       setInput('');
-      setFilm({});
       alert('erro')
     }
 
@@ -108,27 +158,35 @@ function App() {
         
       }
     }
-    async function page(){
-      var pagina1 =  document.getElementById('page1')
-      var pagina2 =  document.getElementById('page2')
-      if(ValuePage == 1){ // page 2
-        document.getElementById(`btn-page2`).style.backgroundColor = '#089dd8'
-        document.getElementById('pagesText').innerHTML = '2'
-        document.getElementById('btn-page1').style.backgroundColor = 'transparent'
-        pagina1.style.display = 'none'
-        pagina2.style.display = 'flex'
-      
-        ValuePage = 2
-      }else{ // page 1
-        document.getElementById(`btn-page1`).style.backgroundColor = '#089dd8'
-        document.getElementById('pagesText').innerHTML = '1'
-        document.getElementById('btn-page2').style.backgroundColor = 'transparent'
-        pagina2.style.display = 'none'
-        pagina1.style.display = 'flex'
-       
-        ValuePage = 1
-      }
+    function MudarPagina(value){
+        if(value == 'return'){
+
+          if(PaginaAtual <= 1){
+            
+          }else{
+            for(const key in Movie[PaginaAtual]){
+              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
+            }
+            PaginaAtual -= 1
+            for(const key in Movie[PaginaAtual]){
+              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
+            }
+          }
+        }else if(value == 'next'){
+          if(PaginaAtual >= totalPaginas){
+            
+          }else{
+            for(const key in Movie[PaginaAtual]){
+              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
+            }
+            PaginaAtual += 1
+            for(const key in Movie[PaginaAtual]){
+              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
+            }
+          }
+        }
     }
+
  
 
 
@@ -137,37 +195,30 @@ function App() {
     <div className="center">
       
       <h1>Search a movie:</h1>
-      <div className="containerInput" id='teste'>
+      <div className="containerInput" id='DivSearch'>
           <input 
+          id='inputSearch'
           type="text"
           placeholder="Film's name..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          autoComplete='off'
+
           onKeyDown={event => {
             if (event.key === 'Enter') {
               handleSearch()
             }
             }}
           />
-          <button className="buttonSearch" onClick={handleSearch}>
+          <button className="buttonSearch" id='buttonSearch' onClick={handleSearch}>
             <FiSearch size={25} color='FFF'/>
           </button>
       </div>
-      {Object.keys(film).length > 0 &&( // Buscar Filmes
-        <div className='results'>
-          <span className='pages' > <CiBookmark />Page: <a id='pagesText'>{ValuePage} </a></span>
-          <a>
-            <a id='page1'>
-              {Pages1}
-            </a>
-            <a id='page2'>
-              {Pages2}
-            </a>
-          </a>
-          <div className='DivPages'>
-            {btnPages}
-          </div>
-         </div>  
+      {Movie.length > 0 &&( // Buscar Filmes
+        <div className='MovieResults'> 
+          {Pages}
+          {Buttons}
+        </div>
       )}
       {errorValue == false && ( // Error ao buscar Filmes
           <main className='resultError'>
