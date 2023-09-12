@@ -19,6 +19,7 @@ var nameMovie = ''
 var PageResquest = 1
 var Movie = []
 var MovieResults = []
+var value = ''
 function App() {
   const [input, setInput] = useState('');
   const [film, setFilm] = useState({});
@@ -40,9 +41,9 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
-    document.getElementById('DivSearch').style.cursor = 'no-drop'
-    document.getElementById('inputSearch').style.cursor = 'no-drop'
-    document.getElementById('buttonSearch').style.cursor = 'no-drop'
+    document.getElementById('DivSearch').style.cursor = 'wait'
+    document.getElementById('inputSearch').style.cursor = 'wait'
+    document.getElementById('buttonSearch').style.cursor = 'wait'
     busca = false
     try{
       PaginaAtual = 1
@@ -65,15 +66,13 @@ function App() {
         if(response.data.Search.length == 10){
           if(PageResquest >= 11){break}
           Movie[PageResquest] = response.data.Search
-          // if(PageResquest == 1){displeyDefault = 'flex'}else{displeyDefault = 'none'}
           for(const key in response.data.Search){
             Pages.push(
-              <> 
-                  <div className='MovieCard' style={{display: displeyDefault}}  id={`page${PageResquest} m${key}`}>
-                    <img  name='card' src={Movie[PageResquest][key].Poster}></img>
-                    <p for="card"> {Movie[PageResquest][key].Title} </p>
-                  </div>
-              </>
+              <div className='MovieCard' style={{display: displeyDefault}}  id={`page${PageResquest} m${key}`} onClick={() => movieDetais(key)}>
+                <img  name='card' src={Movie[PageResquest][key].Poster}></img>
+                <p for="card"> {Movie[PageResquest][key].Title} </p>
+              </div>
+  
             )
           }
           displeyDefault = 'none'
@@ -83,10 +82,11 @@ function App() {
         }else {
           if(PageResquest >= 11){break}
           Movie[PageResquest] = response.data.Search
+
           for(const key in response.data.Search){
             Pages.push(
               <>
-                  <div className='MovieCard' style={{display: displeyDefault}} id={`page${PageResquest} m${key}`}>
+                  <div className='MovieCard' onClick={() => movieDetais(key)} style={{display: displeyDefault}} id={`page${PageResquest} m${key}`}>
                     <img  name='card' src={Movie[PageResquest][key].Poster}></img>
                     <p for="card"> {Movie[PageResquest][key].Title} </p>
                   </div>
@@ -145,22 +145,23 @@ function App() {
 
     async function movieDetais(value){
       setFilmInfo({})
+      var id = Movie[PaginaAtual][value].imdbID
+      id = id.toString()
       try{
-        const response = await api.get(`?i=${value.imdbID}&apikey=c74f3650&plot=full`)
+        const response = await api.get(`?i=${id}&apikey=c74f3650&plot=full`)
         
         if(response.data.Response == 'True'){
           setFilmInfo(response.data)
-
         }else{
           setFilmInfo({})
         }
       }catch{
-        
+        console.log('error ao buscando')
       }
     }
     function MudarPagina(value){
         if(value == 'return'){
-
+ 
           if(PaginaAtual <= 1){
             
           }else{
@@ -230,6 +231,7 @@ function App() {
           </main>
       )}
       {Object.keys(filmInfo).length > 0 &&( // Buscar Detalhes
+      
         
        <div className='MovieDetais' id='IdMovieDetais'>
         <span className='close'> <a onClick={() => setFilmInfo({})} > <CiSquareRemove  color='000' /> </a></span>
