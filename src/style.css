@@ -223,7 +223,7 @@ h1{
     display: flex;
 }
 .centerInfo img {
-    width: 200px;
+    min-width: min(165px, 200px);
     height: 250px;
     margin-right: 5px;
     background: url(./icons/if-word-18-2875628_88181.png) no-repeat center #000;
@@ -279,36 +279,29 @@ h1{
     text-align: center;
 }
 .ButtomInfo {
-    width: 100%;
+    width: auto;
     height: 100%;
-    display: flex;
-    
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
 }
-.ButtomInfo a:first-child{
-    padding: 5px 5px;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.InfoOne{
+    margin-top: 15px;
+    grid-column: 1/4;
+    text-align: center;
 }
-.ButtomInfo a:first-child span{
-    padding: 5px 5px;
-}
-.ButtomInfo a:nth-last-child(1){
-    padding: 5px 5px;
+.InfoTwo{ 
+    grid-column: 1/3;
+    grid-row: 2/2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding-inline: 10px;
 }
-.ButtomInfo a span:hover svg path{
-    transition: 0.5s;
-    stroke: #1785eb;
-    cursor:default;
-}
-.ButtomInfo a span:hover {
-    transition: 0.5s;
-    color: #1785eb;
-    cursor:default;
+.InfoThree{
+    grid-column: 3/4;
+    grid-row: 2/2;
+    display: flex;
+    padding-inline: 10px;
+    flex-direction: column;
 }
 
 

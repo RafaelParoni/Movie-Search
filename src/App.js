@@ -2,7 +2,7 @@ import {useState} from 'react'
 // import Icons ----|
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
-import {GrChannel, GrTrophy, GrValidate, GrLanguage, GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 // import Icons ----|
 
 import './style.css';
@@ -138,6 +138,10 @@ function App() {
       document.getElementById('buttonSearch').style.cursor = 'pointer'
       setInput('');
     }catch{
+      busca = false
+      document.getElementById('DivSearch').style.cursor = 'default'
+      document.getElementById('inputSearch').style.cursor = 'auto'
+      document.getElementById('buttonSearch').style.cursor = 'pointer'
       errorValue = false
       setInput('');
       alert('erro')
@@ -149,6 +153,7 @@ function App() {
       id = id.toString()
       try{
         const response = await api.get(`?i=${id}&apikey=c74f3650&plot=full`)
+        console.log(response.data)
         
         if(response.data.Response == 'True'){
           setFilmInfo(response.data)
@@ -253,18 +258,21 @@ function App() {
                     elementoo.style.display = 'none'
                   }
                 }
-                }}> <FiCopy size={25} color='000'/> </button><span  id='copyName'>copied movie name </span> </h2>
+                }}> <GrCopy size={25} color='000'/> </button><span  id='copyName'>copied movie name </span> </h2>
               <p>{filmInfo.Plot}</p>
               <span><GrChannel/> Released: {filmInfo.Released}</span>
             </div>
           </div>
           <div className='ButtomInfo'>
-            <a>
+            <a className='InfoOne'>
+              <span> <GrMoney/> {filmInfo.BoxOffice} </span>
+            </a>
+            <a className='InfoTwo'>
               <span><GrLanguage/> Language: {filmInfo.Language}</span>
               <span><GrBook/> Genre: {filmInfo.Genre}</span>
               <span><GrUser/> Director: {filmInfo.Director}</span>
             </a> 
-            <a>
+            <a className='InfoThree'>
               <span><GrTrophy/> Awards: {filmInfo.Awards}</span>
               <span><GrValidate/> Metascore: {filmInfo.Metascore}</span>
             </a> 
