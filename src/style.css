@@ -185,7 +185,8 @@ h1{
 /* MOVIE DETAIS */
 .MovieDetais {
     width: 500px;
-    height: 500px;
+    height: min(500px, 700px);
+    overflow-y: scroll;
     position: fixed;
     z-index: 2;
     padding: 0;
@@ -282,11 +283,11 @@ h1{
     width: auto;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
 }
 .InfoOne{
     margin-top: 15px;
-    grid-column: 1/4;
+    grid-column: 1/5;
     text-align: center;
 }
 .InfoTwo{ 
@@ -297,7 +298,7 @@ h1{
     padding-inline: 10px;
 }
 .InfoThree{
-    grid-column: 3/4;
+    grid-column: 3/5;
     grid-row: 2/2;
     display: flex;
     padding-inline: 10px;
