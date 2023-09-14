@@ -49,7 +49,15 @@ function App() {
     document.getElementById('buttonSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').setAttribute('readonly', 'on')
     try{
-      
+      if( PaginaAtual !== 1){
+        for(const key in Movie[PaginaAtual]){
+          document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
+        }
+        for(const key in Movie[1]){
+          document.getElementById(`page${1} m${key}`).style.display = 'flex'
+        }
+        document.getElementById('NumberPages').innerHTML = 1
+      }
       PaginaAtual = 1
       Pages = []
       Buttons = []
@@ -140,7 +148,7 @@ function App() {
       document.getElementById('body').style.cursor = 'auto'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
-    }catch{
+    }catch(err){
       busca = false
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
@@ -149,7 +157,7 @@ function App() {
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       errorValue = false
       setInput('');
-      alert('erro')
+      console.log(`ERROR: ${err}`)
     }
     
     async function movieDetais(value){
