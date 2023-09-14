@@ -21,6 +21,7 @@ var ValorDasPaginaAtual = '1'
 var PageResquest = 1
 var Movie = []
 var MovieResults = []
+var ValorError = []
 var value = ''
 function App() {
   const [input, setInput] = useState('');
@@ -149,6 +150,7 @@ function App() {
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch(err){
+      ValorError = []
       busca = false
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
@@ -158,6 +160,8 @@ function App() {
       errorValue = false
       setInput('');
       console.log(`ERROR: ${err}`)
+      
+      
     }
     
     async function movieDetais(value){
@@ -253,6 +257,7 @@ function App() {
             </div>
             <span><b>{movie}</b> not found :c</span>
             <span>Try searching without name translation!</span>
+            <span>Error:<a id='Error'>{ValorError}</a></span>
           </main>
       )}
       {Object.keys(filmInfo).length > 0 &&( // Buscar Detalhes
