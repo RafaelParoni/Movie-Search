@@ -201,6 +201,18 @@ h1{
     flex-direction: column;
     padding: 5px;
     border-radius: 5px;
+    animation: MovieDetaisFrames 1s;
+    
+}
+@keyframes MovieDetaisFrames {
+    from {
+        top: 0%;
+    }
+    to{
+        
+        top: 50%;
+    }
+    
 }
 
 .close {

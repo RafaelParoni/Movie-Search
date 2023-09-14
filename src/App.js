@@ -18,6 +18,7 @@ var displeyDefault = 'flex'
 var nameMovie = ''
 var PageResquest = 1
 var Movie = []
+var results = false
 var MovieResults = []
 var value = ''
 function App() {
@@ -41,15 +42,13 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
-    document.getElementById('root').style.cursor = 'wait'
+    document.getElementById('body').style.cursor = 'wait'
     document.getElementById('DivSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').style.cursor = 'wait'
     document.getElementById('buttonSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').setAttribute('readonly', 'on')
-    busca = false
     try{
       PaginaAtual = 1
-      busca = false
       Pages = []
       Buttons = []
       Movie = []
@@ -133,12 +132,11 @@ function App() {
       
       
       busca = false
-      console.log('Terminou de buscar')
       //if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
-      document.getElementById('root').style.cursor = 'auto'
+      document.getElementById('body').style.cursor = 'auto'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch{
@@ -146,7 +144,7 @@ function App() {
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
-      document.getElementById('root').style.cursor = 'auto'
+      document.getElementById('body').style.cursor = 'auto'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       errorValue = false
       setInput('');
@@ -218,7 +216,7 @@ function App() {
           maxLength={20}
           rows={1}
           wrap='off'
-          dis
+          
           
           onKeyDown={event => {
             if (event.key === 'Enter') {
