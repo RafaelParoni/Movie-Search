@@ -2,7 +2,7 @@ import {useState} from 'react'
 // import Icons ----|
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
-import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 // import Icons ----|
 
 import './style.css';
@@ -16,9 +16,10 @@ var PaginaAtual = 1
 var Buttons = []
 var displeyDefault = 'flex'
 var nameMovie = ''
+var ValorTotalDasPaginas = ''
+var ValorDasPaginaAtual = '1'
 var PageResquest = 1
 var Movie = []
-var results = false
 var MovieResults = []
 var value = ''
 function App() {
@@ -48,6 +49,7 @@ function App() {
     document.getElementById('buttonSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').setAttribute('readonly', 'on')
     try{
+      
       PaginaAtual = 1
       Pages = []
       Buttons = []
@@ -101,7 +103,6 @@ function App() {
          
          
       }
-      
       if(Movie.length <= 3){
         console.log('menor doq 1')
         console.log(totalPaginas)
@@ -129,9 +130,9 @@ function App() {
           </div>
         )
       }
-      
-      
       busca = false
+      ValorTotalDasPaginas = `${totalPaginas}`
+      ValorDasPaginaAtual = '1'
       //if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
@@ -150,7 +151,7 @@ function App() {
       setInput('');
       alert('erro')
     }
-
+    
     async function movieDetais(value){
       setFilmInfo({})
       var id = Movie[PaginaAtual][value].imdbID
@@ -168,7 +169,7 @@ function App() {
         console.log('error ao buscando')
       }
     }
-    function MudarPagina(value){
+    async function MudarPagina(value){
         if(value == 'return'){
  
           if(PaginaAtual <= 1){
@@ -182,6 +183,7 @@ function App() {
               document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
             }
           }
+          document.getElementById('NumberPages').innerHTML = PaginaAtual
         }else if(value == 'next'){
           if(PaginaAtual >= totalPaginas){
             
@@ -194,6 +196,7 @@ function App() {
               document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
             }
           }
+          document.getElementById('NumberPages').innerHTML = PaginaAtual
         }
     }
 
@@ -230,8 +233,9 @@ function App() {
       </div>
       {Movie.length > 0 &&( // Buscar Filmes
         <div className='MovieResults'> 
-          {Pages}
-          {Buttons}
+          <span><GrDocument/>Pagina: <p id='NumberPages'>{ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas} </span>
+          <a>{Pages}</a>
+          <a>{Buttons}</a>
         </div>
       )}
       {errorValue == false && ( // Error ao buscar Filmes
