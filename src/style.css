@@ -226,7 +226,7 @@ h1{
     display: flex;
 }
 .centerInfo img {
-    min-width: min(165px, 200px);
+    width: min(165px, 200px);
     height: 250px;
     margin-right: 5px;
     background: url(./icons/if-word-18-2875628_88181.png) no-repeat center #000;
