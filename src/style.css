@@ -31,18 +31,20 @@ h1{
     border-radius: 8px;
     box-shadow: 1px 3px 8px rgb(0, 0, 0, 50%);
 }
-.containerInput input {
+.containerInput textarea {
     background: transparent;
     border: none;   
     font-size: 20px;
     color: #fff;
     outline: none;
     margin-right: 8px;
+    resize: none;
+    overflow: hidden;
 }
-.containerInput input::placeholder {
+.containerInput textarea::placeholder {
     color: #f1f1f1;
 }
-.containerInput input:focus::placeholder{
+.containerInput textarea:focus::placeholder{
     color: transparent;
 }
 

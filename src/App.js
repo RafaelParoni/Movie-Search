@@ -41,9 +41,11 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
+    document.getElementById('root').style.cursor = 'wait'
     document.getElementById('DivSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').style.cursor = 'wait'
     document.getElementById('buttonSearch').style.cursor = 'wait'
+    document.getElementById('inputSearch').setAttribute('readonly', 'on')
     busca = false
     try{
       PaginaAtual = 1
@@ -136,12 +138,16 @@ function App() {
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
+      document.getElementById('root').style.cursor = 'auto'
+      document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch{
       busca = false
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
+      document.getElementById('root').style.cursor = 'auto'
+      document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       errorValue = false
       setInput('');
       alert('erro')
@@ -202,14 +208,18 @@ function App() {
       
       <h1>Search a movie:</h1>
       <div className="containerInput" id='DivSearch'>
-          <input 
+          <textarea 
           id='inputSearch'
           type="text"
           placeholder="Film's name..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           autoComplete='off'
-
+          maxLength={20}
+          rows={1}
+          wrap='off'
+          dis
+          
           onKeyDown={event => {
             if (event.key === 'Enter') {
               handleSearch()
