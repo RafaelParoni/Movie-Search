@@ -9,7 +9,6 @@ import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
 var busca = false
-var movie = ''
 var errorValue = true;
 var Pages = []
 var PaginaAtual = 1
@@ -21,11 +20,9 @@ var ValorDasPaginaAtual = '1'
 var PageResquest = 1
 var Movie = []
 var MovieResults = []
-var ValorError = []
-var value = ''
+
 function App() {
   const [input, setInput] = useState('');
-  const [film, setFilm] = useState({});
   const [filmInfo, setFilmInfo] = useState({});
 
 
@@ -108,9 +105,7 @@ function App() {
           totalPaginas++
           }
   
-      }
-         
-         
+        }   
       }
       if(Movie.length <= 3){
         console.log('menor doq 1')
@@ -150,7 +145,6 @@ function App() {
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch(err){
-      ValorError = []
       busca = false
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
@@ -255,9 +249,8 @@ function App() {
             <div className='posterError'>
               <img src={posterError}/>
             </div>
-            <span><b>{movie}</b> not found :c</span>
+            <span><b>{nameMovie}</b> not found :c</span>
             <span>Try searching without name translation!</span>
-            <span>Error:<a id='Error'>{ValorError}</a></span>
           </main>
       )}
       {Object.keys(filmInfo).length > 0 &&( // Buscar Detalhes
