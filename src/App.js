@@ -3,6 +3,7 @@ import {useState} from 'react'
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
 import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {FcHighPriority} from 'react-icons/fc'
 // import Icons ----|
 
 import './style.css';
@@ -41,6 +42,7 @@ function App() {
       alert('Digite o nome do filme!')
       return;
     }
+    document.getElementById('ErrorSpan').style.display = 'none'
     document.getElementById('body').style.cursor = 'wait'
     document.getElementById('DivSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').style.cursor = 'wait'
@@ -56,6 +58,7 @@ function App() {
         }
         document.getElementById('NumberPages').innerHTML = 1
       }
+      errorValue = true
       PaginaAtual = 1
       Pages = []
       Buttons = []
@@ -154,6 +157,8 @@ function App() {
       errorValue = false
       setInput('');
       console.log(`ERROR: ${err}`)
+      document.getElementById('ErrorA').innerHTML = ` Error: ${err}`
+      document.getElementById('ErrorSpan').style.display = 'block'
       
       
     }
@@ -225,8 +230,6 @@ function App() {
           maxLength={20}
           rows={1}
           wrap='off'
-          
-          
           onKeyDown={event => {
             if (event.key === 'Enter') {
               handleSearch()
@@ -237,12 +240,15 @@ function App() {
             <FiSearch size={25} color='FFF'/>
           </button>
       </div>
+
+      <span id="ErrorSpan"><FcHighPriority/> <a id='ErrorA'></a> </span>
       {Movie.length > 0 &&( // Buscar Filmes
         <div className='MovieResults'> 
-          <span><GrDocument/>Pagina: <p id='NumberPages'>{ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas} </span>
+          <span><GrDocument/>Page: <p id='NumberPages'> {ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas} </span>
           <a>{Pages}</a>
           <a>{Buttons}</a>
         </div>
+
       )}
       {errorValue == false && ( // Error ao buscar Filmes
           <main className='resultError'>
