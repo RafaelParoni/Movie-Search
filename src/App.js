@@ -241,7 +241,7 @@ function App() {
           </button>
       </div>
 
-      <span id="ErrorSpan"><FcHighPriority/> <a id='ErrorA'></a> </span>
+      <button id="ErrorSpan"> <FcHighPriority className='teste'/> <a id='ErrorA'></a> </button>
       {Movie.length > 0 &&( // Buscar Filmes
         <div className='MovieResults'> 
           <span><GrDocument/>Page: <p id='NumberPages'> {ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas} </span>
