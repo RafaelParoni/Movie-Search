@@ -3,6 +3,7 @@ import {useState} from 'react'
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
 import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {ImSpinner11} from 'react-icons/im'
 import {FcHighPriority} from 'react-icons/fc'
 // import Icons ----|
 
@@ -48,6 +49,8 @@ function App() {
     document.getElementById('DivSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').style.cursor = 'wait'
     document.getElementById('buttonSearch').style.cursor = 'wait'
+    document.getElementById('SearchLoading').style.display = 'flex'
+    document.getElementById('SearchDefault').style.display = 'none'
     document.getElementById('inputSearch').setAttribute('readonly', 'on')
     
     try{
@@ -148,6 +151,8 @@ function App() {
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
       document.getElementById('body').style.cursor = 'auto'
+      document.getElementById('SearchLoading').style.display = 'none'
+    document.getElementById('SearchDefault').style.display = 'flex'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch(err){
@@ -156,6 +161,8 @@ function App() {
       document.getElementById('inputSearch').style.cursor = 'auto'
       document.getElementById('buttonSearch').style.cursor = 'pointer'
       document.getElementById('body').style.cursor = 'auto'
+      document.getElementById('SearchLoading').style.display = 'none'
+    document.getElementById('SearchDefault').style.display = 'flex'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       errorValue = false
       setInput('');
@@ -239,7 +246,8 @@ function App() {
             }}
           />
           <button className="buttonSearch" id='buttonSearch' onClick={handleSearch}>
-            <FiSearch size={25} color='FFF'/>
+            <a id='SearchLoading' ><ImSpinner11 size={25} color='FFF'/></a>
+            <a id='SearchDefault' ><FiSearch size={25} color='FFF'/></a>
           </button>
       </div>
 
