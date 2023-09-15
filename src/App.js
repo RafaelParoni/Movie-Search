@@ -2,7 +2,7 @@ import {useState} from 'react'
 // import Icons ----|
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
-import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 import {FcHighPriority} from 'react-icons/fc'
 // import Icons ----|
 
@@ -18,6 +18,7 @@ var displeyDefault = 'flex'
 var nameMovie = ''
 var ValorTotalDasPaginas = ''
 var ValorDasPaginaAtual = '1'
+var ValorTotalDeFilmes = ''
 var PageResquest = 1
 var Movie = []
 var MovieResults = []
@@ -48,6 +49,7 @@ function App() {
     document.getElementById('inputSearch').style.cursor = 'wait'
     document.getElementById('buttonSearch').style.cursor = 'wait'
     document.getElementById('inputSearch').setAttribute('readonly', 'on')
+    
     try{
       if( PaginaAtual !== 1){
         for(const key in Movie[PaginaAtual]){
@@ -56,6 +58,7 @@ function App() {
         for(const key in Movie[1]){
           document.getElementById(`page${1} m${key}`).style.display = 'flex'
         }
+        document.getElementById('NumberMovies').innerHTML = 'Atualizando'
         document.getElementById('NumberPages').innerHTML = 1
       }
       errorValue = true
@@ -111,8 +114,6 @@ function App() {
         }   
       }
       if(Movie.length <= 3){
-        console.log('menor doq 1')
-        console.log(totalPaginas)
         var i = 0
         if(totalPaginas == 1 ){
           Buttons.push(
@@ -128,7 +129,6 @@ function App() {
             </div>
         )
         }
-
       }else{
         Buttons.push(
           <div className='BtnPages'>
@@ -137,9 +137,12 @@ function App() {
           </div>
         )
       }
+      
       busca = false
       ValorTotalDasPaginas = `${totalPaginas}`
       ValorDasPaginaAtual = '1'
+      ValorTotalDeFilmes = Movie[ValorDasPaginaAtual].length
+      if(document.getElementById('NumberMovies') !== null){document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length}
       //if(response.data.Response == 'False'){errorValue = false; setFilm({}); movie = input }else {errorValue = true}
       document.getElementById('DivSearch').style.cursor = 'default'
       document.getElementById('inputSearch').style.cursor = 'auto'
@@ -195,6 +198,7 @@ function App() {
             }
           }
           document.getElementById('NumberPages').innerHTML = PaginaAtual
+          document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
         }else if(value == 'next'){
           if(PaginaAtual >= totalPaginas){
             
@@ -208,13 +212,11 @@ function App() {
             }
           }
           document.getElementById('NumberPages').innerHTML = PaginaAtual
+          document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
         }
     }
 
- 
-
-
-
+    
   }return (
     <div className="center">
       
@@ -244,7 +246,7 @@ function App() {
       <button id="ErrorSpan"> <FcHighPriority className='teste'/> <a id='ErrorA'></a> </button>
       {Movie.length > 0 &&( // Buscar Filmes
         <div className='MovieResults'> 
-          <span><GrDocument/>Page: <p id='NumberPages'> {ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas} </span>
+          <span><GrFolderOpen/>Page: <p id='NumberPages'> {ValorDasPaginaAtual}</p>/{ValorTotalDasPaginas}  <GrDocument/> Movies: <p id='NumberMovies'> {ValorTotalDeFilmes} </p> </span>
           <a>{Pages}</a>
           <a>{Buttons}</a>
         </div>
