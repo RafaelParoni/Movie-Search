@@ -2,7 +2,7 @@ import {useState} from 'react'
 // import Icons ----|
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
-import {GrChannel, GrTrophy, GrValidate, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {GrChannel, GrTrophy, GrValidate,GrStatusUnknown, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 import {ImSpinner11} from 'react-icons/im'
 import {FcHighPriority} from 'react-icons/fc'
 // import Icons ----|
@@ -10,6 +10,7 @@ import {FcHighPriority} from 'react-icons/fc'
 import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
+
 var busca = false
 var errorValue = true;
 var Pages = []
@@ -250,7 +251,6 @@ function App() {
             <a id='SearchDefault' ><FiSearch size={25} color='FFF'/></a>
           </button>
       </div>
-
       <button id="ErrorSpan"> <FcHighPriority className='teste'/> <a id='ErrorA'></a> </button>
       {Movie.length > 0 &&( // Buscar Filmes
         <div className='MovieResults'> 
@@ -299,6 +299,7 @@ function App() {
           </div>
           <div className='ButtomInfo'>
             <a className='InfoOne'>
+              <button> <GrStatusUnknown/> Onde assistir?</button>
               <span> <GrMoney/> {filmInfo.BoxOffice} </span>
             </a>
             <a className='InfoTwo'>
