@@ -282,6 +282,7 @@ function App() {
             <a>
               <img src={filmInfo.Poster} />
               <span>Run time: {filmInfo.Runtime}</span>
+              <button className='SearchCenterInfo'> <GrStatusUnknown/> Onde assistir?</button>
             </a>
             <div>
               <h2>{filmInfo.Title} <button onClick={() => {
@@ -303,7 +304,6 @@ function App() {
           </div>
           <div className='ButtomInfo'>
             <a className='InfoOne'>
-              <button> <GrStatusUnknown/> Onde assistir?</button>
               <span> <GrMoney/> {filmInfo.BoxOffice} </span>
             </a>
             <a className='InfoTwo'>

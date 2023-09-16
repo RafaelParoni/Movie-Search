@@ -325,6 +325,23 @@ h1{
     justify-content: top;
     align-items: center;
 }
+.SearchCenterInfo {
+    margin-inline: 15px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: none;
+    background-color: rgba(194, 194, 194, 0.7);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.SearchCenterInfo:hover{
+    transition: 0.5s;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 1px #000;
+}
 #copyName {
     display: none;
     background-color: rgba(102, 236, 69, 0.9);
@@ -347,32 +364,10 @@ h1{
     margin-top: 15px;
     grid-column: 1/5;
     text-align: center;
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr 1fr ;
+    
     
 }
-.InfoOne button{
-    grid-column: 1/2;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    border: none;
-    background-color: rgba(194, 194, 194, 0.7);
-    border-radius: 5px;
-    cursor: pointer;
-}
-.InfoOne button:hover{
-    transition: 0.5s;
-    transform: scale(1.1);
-    box-shadow: 0px 0px 10px 1px #000;
 
-}
-.InfoOne span{
-    grid-column: 3/5;
-    text-align: center;
-}
 .InfoTwo{ 
     grid-column: 1/3;
     grid-row: 2/2;
@@ -423,6 +418,8 @@ h1{
     .centerInfo a{
         display: flex;
         justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
     .centerInfo a span{
         width: auto;
@@ -433,6 +430,10 @@ h1{
         text-align: center;
         color: #000;
         text-decoration: none;
+    }
+    .SearchCenterInfo {
+        margin-top: 15px;
+        width: 150px;
     }
     .close {
         padding-right: 5px;
