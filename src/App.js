@@ -29,14 +29,13 @@ function App() {
   const [input, setInput] = useState('');
   const [filmInfo, setFilmInfo] = useState({});
 
-
-
+  
+ 
  
 
   async function handleSearch(){
     //  12237837/json/
 
- 
     if(busca == true){
       console.log('barrado')
       return
@@ -167,7 +166,7 @@ function App() {
       document.getElementById('buttonSearch').style.cursor = 'pointer'
       document.getElementById('body').style.cursor = 'auto'
       document.getElementById('SearchLoading').style.display = 'none'
-    document.getElementById('SearchDefault').style.display = 'flex'
+      document.getElementById('SearchDefault').style.display = 'flex'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       errorValue = false
       setInput('');
@@ -177,7 +176,7 @@ function App() {
       
       
     }
-    
+
     async function movieDetais(value){
       setFilmInfo({})
       var id = Movie[PaginaAtual][value].imdbID
@@ -196,36 +195,39 @@ function App() {
       }
     }
     async function MudarPagina(value){
-        if(value == 'return'){
- 
-          if(PaginaAtual <= 1){
-            
-          }else{
-            for(const key in Movie[PaginaAtual]){
-              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
-            }
-            PaginaAtual -= 1
-            for(const key in Movie[PaginaAtual]){
-              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
-            }
+      if(value == 'return'){
+
+        if(PaginaAtual <= 1){
+          
+        }else{
+          for(const key in Movie[PaginaAtual]){
+            document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
           }
-          document.getElementById('NumberPages').innerHTML = PaginaAtual
-          document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
-        }else if(value == 'next'){
-          if(PaginaAtual >= totalPaginas){
-            
-          }else{
-            for(const key in Movie[PaginaAtual]){
-              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
-            }
-            PaginaAtual += 1
-            for(const key in Movie[PaginaAtual]){
-              document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
-            }
+          PaginaAtual -= 1
+          for(const key in Movie[PaginaAtual]){
+            document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
           }
-          document.getElementById('NumberPages').innerHTML = PaginaAtual
-          document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
         }
+        document.getElementById('NumberPages').innerHTML = PaginaAtual
+        document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
+      }else if(value == 'next'){
+        if(PaginaAtual >= totalPaginas){
+          
+        }else{
+          for(const key in Movie[PaginaAtual]){
+            document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'none'
+          }
+          PaginaAtual += 1
+          for(const key in Movie[PaginaAtual]){
+            document.getElementById(`page${PaginaAtual} m${key}`).style.display = 'flex'
+          }
+        }
+        document.getElementById('NumberPages').innerHTML = PaginaAtual
+        document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
+      }
+    }
+    function teste(value){ // ---------------------- aquiiiii
+      console.log(value)
     }
 
     
@@ -282,7 +284,7 @@ function App() {
             <a>
               <img src={filmInfo.Poster} />
               <span>Run time: {filmInfo.Runtime}</span>
-              <button className='SearchCenterInfo'> <GrStatusUnknown/> Onde assistir?</button>
+              <button className='SearchCenterInfo' onClick={()=> teste(filmInfo.Title)}> <GrStatusUnknown/> Onde assistir?</button> 
             </a>
             <div>
               <h2>{filmInfo.Title} <button onClick={() => {
