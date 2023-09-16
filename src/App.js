@@ -82,6 +82,7 @@ function App() {
       while(totalPaginas < PageResquest){
         var page = PageResquest.toString()
         const response = await api.get(`?s=${nameMovie}&page=${page}&apikey=c74f3650&plot=full`);
+        console.log(response.data.Search)
         if(response.data.Search.length == 10){
           if(PageResquest >= 11){break}
           Movie[PageResquest] = response.data.Search
@@ -94,10 +95,10 @@ function App() {
   
             )
           }
+          console.log(`Criando pagina ${PageResquest}`)
           displeyDefault = 'none'
           PageResquest++
           totalPaginas++
-          
         }else {
           if(PageResquest >= 11){break}
           Movie[PageResquest] = response.data.Search
@@ -112,8 +113,11 @@ function App() {
           
               </>
             )
-          totalPaginas++
+          
           }
+          console.log(`Criando pagina ${PageResquest}`)
+         // PageResquest++
+          totalPaginas++
   
         }   
       }
