@@ -272,7 +272,12 @@ function App() {
   }
 
   function location(){
-    window.location.assign(OndeAssistirLink)
+    // window.location.assign(OndeAssistirLink)
+    if(OndeAssistirLink == '#'){
+      alert('Could not find the movie')
+    }else{
+      window.open(OndeAssistirLink);
+    }
   }
   
 
