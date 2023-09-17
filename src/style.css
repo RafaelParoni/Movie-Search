@@ -327,7 +327,8 @@ h1{
 }
 .SearchCenterInfo {
     margin-inline: 15px;
-    height: 20px;
+    height: auto;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;

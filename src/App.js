@@ -2,7 +2,7 @@ import {useState} from 'react'
 // import Icons ----|
 import { FiSearch, FiCopy } from 'react-icons/fi'
 import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
-import {GrChannel, GrTrophy, GrValidate,GrStatusUnknown, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
+import {GrChannel, GrTrophy, GrValidate, GrPlay, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 import {ImSpinner11} from 'react-icons/im'
 import {FcHighPriority} from 'react-icons/fc'
 // import Icons ----|
@@ -10,6 +10,7 @@ import {FcHighPriority} from 'react-icons/fc'
 import './style.css';
 import api from './services/api'
 import posterError from './poster.jpg'
+import axios from 'axios';
 
 var busca = false
 var errorValue = true;
@@ -23,16 +24,16 @@ var ValorDasPaginaAtual = '1'
 var ValorTotalDeFilmes = ''
 var PageResquest = 1
 var Movie = []
+var OndeAssistirResults = []
+var OndeAssistirDetalhes = []
 var MovieResults = []
+var OndeAssistirLink = ''
 
 function App() {
   const [input, setInput] = useState('');
   const [filmInfo, setFilmInfo] = useState({});
-
+ 
   
- 
- 
-
   async function handleSearch(){
     //  12237837/json/
 
@@ -156,7 +157,7 @@ function App() {
       document.getElementById('buttonSearch').style.cursor = 'pointer'
       document.getElementById('body').style.cursor = 'auto'
       document.getElementById('SearchLoading').style.display = 'none'
-    document.getElementById('SearchDefault').style.display = 'flex'
+      document.getElementById('SearchDefault').style.display = 'flex'
       document.getElementById('inputSearch').removeAttribute('readonly', 'on')
       setInput('');
     }catch(err){
@@ -178,20 +179,61 @@ function App() {
     }
 
     async function movieDetais(value){
+      document.getElementById('body').style.cursor = 'wait'
       setFilmInfo({})
       var id = Movie[PaginaAtual][value].imdbID
       id = id.toString()
       try{
         const response = await api.get(`?i=${id}&apikey=c74f3650&plot=full`)
-        console.log(response.data)
+        
         
         if(response.data.Response == 'True'){
+          const options = {
+            method: 'GET',
+            url: 'https://streaming-availability.p.rapidapi.com/search/title',
+            params: {
+              title: response.data.Title,
+              country: 'us',
+              show_type: 'all',
+              output_language: 'en'
+            },
+            headers: {
+              'X-RapidAPI-Key': '4d1fc03470msh98ed2d469a33f37p102184jsn7cab8e913b66',
+              'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
+            }
+          };
+      
+          try {
+            const responseOndeAssisitr = await axios.request(options);
+            OndeAssistirResults = responseOndeAssisitr.data.result[0]
+            console.log(OndeAssistirResults)
+            if(OndeAssistirResults !== undefined || OndeAssistirResults !== ''){
+              OndeAssistirResults = OndeAssistirResults.streamingInfo.us[0].service
+              OndeAssistirLink = responseOndeAssisitr.data.result[0].streamingInfo.us[0].link
+              console.log(OndeAssistirLink)
+          
+            }else{
+              OndeAssistirResults = 'Not Found'
+              OndeAssistirLink = '#'
+            
+            }
+          } catch (error) {
+            OndeAssistirResults = 'Not Found'
+            OndeAssistirLink = '#'
+          }
+
           setFilmInfo(response.data)
+          document.getElementById('body').style.cursor = 'auto'
         }else{
           setFilmInfo({})
+          document.getElementById('body').style.cursor = 'auto'
         }
+
+        
+        
       }catch{
         console.log('error ao buscando')
+        document.getElementById('body').style.cursor = 'auto'
       }
     }
     async function MudarPagina(value){
@@ -226,12 +268,16 @@ function App() {
         document.getElementById('NumberMovies').innerHTML = Movie[PaginaAtual].length
       }
     }
-    function teste(value){ // ---------------------- aquiiiii
-      console.log(value)
-    }
+  
+  }
 
-    
-  }return (
+  function location(){
+    window.location.assign(OndeAssistirLink)
+  }
+  
+
+
+  return (
     <div className="center">
       
       <h1>Search a movie:</h1>
@@ -276,15 +322,13 @@ function App() {
           </main>
       )}
       {Object.keys(filmInfo).length > 0 &&( // Buscar Detalhes
-      
-        
        <div className='MovieDetais' id='IdMovieDetais'>
         <span className='close'> <a onClick={() => setFilmInfo({})} > <CiSquareRemove  color='000' /> </a></span>
           <div className='centerInfo'>
             <a>
               <img src={filmInfo.Poster} />
               <span>Run time: {filmInfo.Runtime}</span>
-              <button className='SearchCenterInfo' onClick={()=> teste(filmInfo.Title)}> <GrStatusUnknown/> Onde assistir?</button> 
+              <div className='SearchCenterInfo' onClick={()=> location({OndeAssistirResults})}> <a> <GrPlay/> watch on :</a> <a> {OndeAssistirResults} </a></div> 
             </a>
             <div>
               <h2>{filmInfo.Title} <button onClick={() => {
@@ -320,6 +364,7 @@ function App() {
           </div>
         </div>
       )}
+      
     </div>
   );
 }
