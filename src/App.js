@@ -5,6 +5,8 @@ import { CiSquareRemove, CiBookmark } from 'react-icons/ci'
 import {GrChannel, GrTrophy, GrValidate, GrPlay, GrMoney, GrLanguage, GrDocument, GrFolderOpen, GrCopy ,GrBook, GrUser, GrCaretNext, GrCaretPrevious} from 'react-icons/gr';
 import {ImSpinner11} from 'react-icons/im'
 import {FcHighPriority} from 'react-icons/fc'
+import {TbBrandDisney, TbError404} from 'react-icons/tb'
+import {SiPrime, SiNetflix, SiNow, SiApple} from 'react-icons/si'
 // import Icons ----|
 
 import './style.css';
@@ -28,6 +30,7 @@ var OndeAssistirResults = []
 var OndeAssistirDetalhes = []
 var MovieResults = []
 var OndeAssistirLink = ''
+var OndeAssistirIcon = ''
 
 function App() {
   const [input, setInput] = useState('');
@@ -82,7 +85,7 @@ function App() {
       while(totalPaginas < PageResquest){
         var page = PageResquest.toString()
         const response = await api.get(`?s=${nameMovie}&page=${page}&apikey=c74f3650&plot=full`);
-        console.log(response.data.Search)
+  
         if(response.data.Search.length == 10){
           if(PageResquest >= 11){break}
           Movie[PageResquest] = response.data.Search
@@ -95,7 +98,6 @@ function App() {
   
             )
           }
-          console.log(`Criando pagina ${PageResquest}`)
           displeyDefault = 'none'
           PageResquest++
           totalPaginas++
@@ -115,7 +117,6 @@ function App() {
             )
           
           }
-          console.log(`Criando pagina ${PageResquest}`)
          // PageResquest++
           totalPaginas++
   
@@ -210,14 +211,33 @@ function App() {
             if(OndeAssistirResults !== undefined || OndeAssistirResults !== ''){
               OndeAssistirResults = OndeAssistirResults.streamingInfo.us[0].service
               OndeAssistirLink = responseOndeAssisitr.data.result[0].streamingInfo.us[0].link
+              if(OndeAssistirResults == 'prime'){
+                OndeAssistirIcon = <SiPrime/>
+                console.log(OndeAssistirIcon)
+              }else if(OndeAssistirResults == 'netflix' ){
+                OndeAssistirIcon = <SiNetflix/>
+                console.log(OndeAssistirIcon)
+              }else if(OndeAssistirResults == 'now' ){
+                OndeAssistirIcon = <SiNow/>
+                console.log(OndeAssistirIcon)
+              }else if(OndeAssistirResults == 'apple'){
+                OndeAssistirIcon = <SiApple/>
+                console.log(OndeAssistirIcon)
+              }else if(OndeAssistirResults == 'disney'){
+                OndeAssistirIcon = <TbBrandDisney/>
+                console.log(OndeAssistirIcon)
+              }
               console.log(OndeAssistirLink)
+              console.log(OndeAssistirResults)
           
             }else{
+              OndeAssistirIcon = <TbError404 size={25}/>
               OndeAssistirResults = 'Not Found'
               OndeAssistirLink = '#'
             
             }
           } catch (error) {
+            OndeAssistirIcon = <TbError404 size={25}/>
             OndeAssistirResults = 'Not Found'
             OndeAssistirLink = '#'
           }
@@ -333,7 +353,7 @@ function App() {
             <a>
               <img src={filmInfo.Poster} />
               <span>Run time: {filmInfo.Runtime}</span>
-              <div className='SearchCenterInfo' onClick={()=> location({OndeAssistirResults})}> <a> <GrPlay/> watch on :</a> <a> {OndeAssistirResults} </a></div> 
+              <div className='SearchCenterInfo' onClick={()=> location({OndeAssistirResults})}> <a> <GrPlay/> watch on :</a> <a className='SearchCenterInfoTitle'> {OndeAssistirIcon} {OndeAssistirResults} </a></div> 
             </a>
             <div>
               <h2>{filmInfo.Title} <button onClick={() => {

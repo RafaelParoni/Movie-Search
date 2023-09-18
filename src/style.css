@@ -343,6 +343,11 @@ h1{
     transform: scale(1.1);
     box-shadow: 0px 0px 10px 1px #000;
 }
+.SearchCenterInfoTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #copyName {
     display: none;
     background-color: rgba(102, 236, 69, 0.9);
